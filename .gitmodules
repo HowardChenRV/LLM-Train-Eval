@@ -1,0 +1,4 @@
+[submodule "frameworks/Megatron-LM-r0.8.0"]
+	path = frameworks/Megatron-LM-r0.8.0
+	url = https://gh-proxy.com/https://github.com/NVIDIA/Megatron-LM
+	branch = core_r0.8.0
