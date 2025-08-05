@@ -75,19 +75,7 @@ wget https://atp-modelzoo-wlcb-pai.oss-cn-wulanchabu.aliyuncs.com/release/models
 ```
 #!/bin/bash
 ## 拷贝测试代码
-mkdir -p ~/.ssh
-cat << EOF > ~/.ssh/id_ed25519
------BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-QyNTUxOQAAACDJQCvF5lxxSVhqyoPZR6CB+wyiXIjba15uRS/gN3nyCgAAAKj/t86d/7fO
-nQAAAAtzc2gtZWQyNTUxOQAAACDJQCvF5lxxSVhqyoPZR6CB+wyiXIjba15uRS/gN3nyCg
-AAAEAcpOVuviaXtW2jkEtIms5v73Iy0jt9+ZvDFktJ+sUjw8lAK8XmXHFJWGrKg9lHoIH7
-DKJciNtrXm5FL+A3efIKAAAAIXJvb3RAam8tZGE2eTRieGVha2NncnQ3eS13b3JrZXItMA
-ECAwQ=
------END OPENSSH PRIVATE KEY-----
-EOF
-chmod 600 ~/.ssh/id_ed25519
-scp -o StrictHostKeyChecking=no ubuntu@10.120.1.5:/mnt/public/LLM-Train-Eval/pretrain.tar.gz /workspace/
+scp xxx:/mnt/public/LLM-Train-Eval/pretrain.tar.gz /workspace/
 tar -zxf /workspace/LLM-Train-Eval/pretrain.tar.gz
 
 ## 运行测试
