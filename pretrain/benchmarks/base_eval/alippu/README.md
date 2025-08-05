@@ -7,7 +7,7 @@
 ## 运行方式
 
 ```
-bash /mnt/data/chenyonghua/infini-tbench/benchmarks/base_eval/alippu/run_alippu_dist.sh
+bash /mnt/data/chenyonghua/LLM-Train-Eval/pretrain/benchmarks/base_eval/alippu/run_alippu_dist.sh
 ```
 
 ## 测试结果

@@ -31,16 +31,13 @@ GLOBAL_BATCH_SIZE=${GLOBAL_BATCH_SIZE:-256}
 MAX_SEQ_LEN=${MAX_SEQ_LEN:-4096}
 MAX_POSITION_EMBEDDINGS=${MAX_POSITION_EMBEDDINGS:-4096}
 
-BASE_PATH=${BASE_PATH:-/mnt/h_public/chenyonghua}
-SRC_PATH=$_THIS_DIR/pretrain_gpt.py
-
+SRC_PATH=${_THIS_DIR}/pretrain_gpt.py
 LOG_NAME=llama2-${MODEL_SIZE}b_pretrain_WS${WORLD_SIZE}_TP${TP}_PP${PP}
 LOG_PATH=${BASE_PATH}/log/${LOG_NAME}/node${NODE_RANK}.log
 mkdir -p ${BASE_PATH}/log/${LOG_NAME} && chmod 777 -R ${BASE_PATH}/log/
 
-TOKENIZER_MODEL=${BASE_PATH}/Llama-2-70b-hf/tokenizer.model
-# DATA_PATH=$_THIS_DIR/../datasets/wudao_mistralbpe_content_document
-DATA_PATH=${BASE_PATH}/datasets/RedPajama-Data-1T-Sample-datasets/RedPajama-Data-Llama
+TOKENIZER_MODEL=/workspace/Llama-2-7b-hf/tokenizer.model
+DATA_PATH=${DATA_PATH:-/workspace/datasets/wudao_mistralbpe_content_document}
 DATA_CACHE_PATH=${BASE_PATH}/data_cache/${LOG_NAME}
 
 DISTRIBUTED_ARGS=(
@@ -116,10 +113,25 @@ EVAL_AND_LOGGING_ARGS=(
     --log-interval 1
     --log-throughput
     --save-interval 10000 
-    --eval-interval 1000 
+    --eval-interval 10000
     --eval-iters 0
+    --wandb-project ${HRADWARE_NAME:-A100-SXM4-80GB}-megatron_r0.10.0-llama2_${MODEL_SIZE}b
+    --wandb-exp-name pretrain-WS${WORLD_SIZE}-tp${TP}-pp${PP}-gbs${GLOBAL_BATCH_SIZE}-mbs${MICRO_BATCH_SIZE}-seqlen${MAX_SEQ_LEN}
+    --wandb-save-dir ${LOG_NAME}
+    --log-timers-to-tensorboard
+    --log-memory-to-tensorboard
+    --log-world-size-to-tensorboard
 )
 
+AURORA_DATA_CLIENT_ARGS=(
+    --aurora-test-type training/pretrain
+    --aurora-tester chenyonghua
+    --aurora-hardware-name A800-SXM4-80GB
+    --aurora-platform-provider cloud-ningxia-e
+    --aurora-model-serial llama2
+    --aurora-model-size ${MODEL_SIZE}
+    --aurora-framework-version 0.10.0
+)
 
 torchrun ${DISTRIBUTED_ARGS[@]} ${SRC_PATH} \
     ${GPT_MODEL_ARGS[@]} \
@@ -128,4 +140,5 @@ torchrun ${DISTRIBUTED_ARGS[@]} ${SRC_PATH} \
     ${MODEL_PARALLEL_ARGS[@]} \
     ${DATA_ARGS[@]} \
     ${EVAL_AND_LOGGING_ARGS[@]} \
+    ${AURORA_DATA_CLIENT_ARGS[@]} \
     2>&1 | tee ${LOG_PATH}

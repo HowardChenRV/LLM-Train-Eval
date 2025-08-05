@@ -17,4 +17,4 @@ export MASTER_PORT=${MASTER_PORT:-12453}
 
 # Training library path
 export BASE_PATH=${BASE_PATH:-/mnt/data/chenyonghua}
-export PYTHONPATH=${BASE_PATH}/infini-tbench/Megatron-LM:$PYTHONPATH
+export PYTHONPATH=${BASE_PATH}/LLM-Train-Eval/pretrain/Megatron-LM:$PYTHONPATH
