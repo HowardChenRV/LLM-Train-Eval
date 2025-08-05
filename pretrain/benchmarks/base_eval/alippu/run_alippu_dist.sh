@@ -16,7 +16,7 @@ export MASTER_PORT=${MASTER_PORT:-12453}
 export PYTHONPATH=$PYTHONPATH:${BASE_PATH}/Infini-Eval
 
 export BASE_PATH=${BASE_PATH:-/mnt/data/chenyonghua}
-export PYTHONPATH=${BASE_PATH}/infini-tbench:${PYTHONPATH}
+export PYTHONPATH=${BASE_PATH}/LLM-Train-Eval/pretrain:${PYTHONPATH}
 
 SRC_PATH=$_THIS_DIR/sys_common_bench.py
 LOG_PATH=${BASE_PATH}/log/base_eval

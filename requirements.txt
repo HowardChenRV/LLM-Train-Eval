@@ -1,0 +1,4 @@
+kafka-python==2.2.8
+pytest
+retrying
+tabulate

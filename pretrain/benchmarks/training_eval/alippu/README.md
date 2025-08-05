@@ -44,11 +44,11 @@ aws  --endpoint-url https://infini-testing.oss-cn-beijing.aliyuncs.com s3 cp  s3
 ### 5. 下载测试代码 
 
 ```bash
-git clone https://gitlab.infini-ai.com/qa/infini-tbench -b main --depth=1
+git clone https://gitlab.infini-ai.com/qa/LLM-Train-Eval/pretrain -b main --depth=1
 ```
 
 ## 训练测试
 
 ```bash
-bash /mnt/data/chenyonghua/infini-tbench/benchmarks/training_eval/alippu/pretrain_llama2_70b_tp4_pp4.sh
+bash /mnt/data/chenyonghua/LLM-Train-Eval/pretrain/benchmarks/training_eval/alippu/pretrain_llama2_70b_tp4_pp4.sh
 ```
